@@ -1,6 +1,7 @@
 class ProjectInput {
   templateElement: HTMLTemplateElement;
   hostElement: HTMLDivElement;
+  element: HTMLFormElement;
 
   constructor() {
     /*Template element
@@ -13,5 +14,19 @@ class ProjectInput {
 
     //Reference to element where we want to render content
     this.hostElement = document.getElementById("app")! as HTMLDivElement;
+
+    //Importing content of template element
+    const importedNode = document.importNode(
+      this.templateElement.content,
+      true
+    );
+
+    this.element = importedNode.firstElementChild as HTMLFormElement;
+    this.attach();
+  }
+  private attach() {
+    this.hostElement.insertAdjacentElement("afterbegin", this.element);
   }
 }
+
+const projectInput = new ProjectInput();
