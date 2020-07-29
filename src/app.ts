@@ -57,6 +57,37 @@ function validate(validatableInput: Validatable) {
   return isValid;
 }
 
+//Project State Management
+class ProjectState {
+  private projects: any[] = [];
+  private static instance: ProjectState;
+
+  //Private constructor for singleton instance
+  private constructor() {}
+
+  static getInstance() {
+    if (this.instance) {
+      return this.instance;
+    }
+    this.instance = new ProjectState();
+    return this.instance;
+  }
+
+  addProject(title: string, description: string, numOfPeople: number) {
+    const newProject = {
+      //Temp random number
+      id: Math.random().toString(),
+      title,
+      description,
+      people: numOfPeople,
+    };
+    this.projects.push(newProject);
+  }
+}
+
+//Global constant, singletion project state
+const projectState = ProjectState.getInstance();
+
 //Project List class
 class ProjectList {
   templateElement: HTMLTemplateElement;
@@ -182,7 +213,8 @@ class ProjectInput {
     event.preventDefault();
     const userInput = this.gatherUserInput();
     if (Array.isArray(userInput)) {
-      //const [title, desc, people] = userInput;
+      const [title, desc, people] = userInput;
+      projectState.addProject(title, desc, people);
       this.clearInputs();
     }
   }
