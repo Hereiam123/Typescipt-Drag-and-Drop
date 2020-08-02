@@ -57,12 +57,6 @@ function validate(validatableInput: Validatable) {
   return isValid;
 }
 
-//Project Type
-enum ProjectStatus {
-  Active,
-  Finished,
-}
-
 //Project Class
 class Project {
   constructor(
@@ -74,16 +68,31 @@ class Project {
   ) {}
 }
 
-//Project State Management
-type Listener = (items: Project[]) => void;
+//Project Type
+enum ProjectStatus {
+  Active,
+  Finished,
+}
 
-class ProjectState {
-  private listeners: Listener[] = [];
+//Project State Management
+type Listener<T> = (items: T[]) => void;
+
+class State<T> {
+  protected listeners: Listener<T>[] = [];
+  //Allows listening subscription of other functions
+  addListener(listenerFn: Listener<T>) {
+    this.listeners.push(listenerFn);
+  }
+}
+
+class ProjectState extends State<Project> {
   private projects: Project[] = [];
   private static instance: ProjectState;
 
   //Private constructor for singleton instance
-  private constructor() {}
+  private constructor() {
+    super();
+  }
 
   static getInstance() {
     if (this.instance) {
@@ -91,11 +100,6 @@ class ProjectState {
     }
     this.instance = new ProjectState();
     return this.instance;
-  }
-
-  //Allows listening subscription of other functions
-  addListener(listenerFn: Listener) {
-    this.listeners.push(listenerFn);
   }
 
   addProject(title: string, description: string, numOfPeople: number) {
