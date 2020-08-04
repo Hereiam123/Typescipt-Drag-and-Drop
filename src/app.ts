@@ -57,6 +57,20 @@ function validate(validatableInput: Validatable) {
   return isValid;
 }
 
+//Drag and Drop Interfaces
+//For draggable items
+interface Draggable {
+  dragStartHandler(event: DragEvent): void;
+  dragEndHandler(event: DragEvent): void;
+}
+
+//Target for draggable item
+interface DragTarget {
+  dragOverHandler(event: DragEvent): void;
+  dropHandler(event: DragEvent): void;
+  dragLeaveHandler(event: DragEvent): void;
+}
+
 //Project Class
 class Project {
   constructor(
@@ -168,7 +182,8 @@ abstract class Component<T extends HTMLElement, U extends HTMLElement> {
 }
 
 //Project Item
-class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement>
+  implements Draggable {
   private project: Project;
 
   get persons() {
@@ -182,11 +197,27 @@ class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
   constructor(hostId: string, project: Project) {
     super("single-project", hostId, false, project.id);
     this.project = project;
-    //this.configure();
+    this.configure();
     this.renderContent();
   }
 
-  configure() {}
+  @autobind
+  dragStartHandler(event: DragEvent) {
+    console.log("Hello");
+    console.log(event);
+  }
+
+  @autobind
+  dragEndHandler(event: DragEvent) {
+    console.log("Hello");
+    console.log(event);
+  }
+
+  configure() {
+    this.element.addEventListener("dragstart", this.dragStartHandler);
+    this.element.addEventListener("dragend", this.dragEndHandler);
+  }
+
   renderContent() {
     this.element.querySelector("h2")!.textContent = this.project.title;
     this.element.querySelector("h3")!.textContent = this.persons + "assigned";
