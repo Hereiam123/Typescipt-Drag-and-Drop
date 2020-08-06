@@ -1,4 +1,5 @@
 /// <reference path = "drag-drop-interfaces.ts" />
+/// <reference path = "project-model.ts" />
 
 namespace App {
   //Custom autobind decorator
@@ -59,23 +60,6 @@ namespace App {
       isValid = isValid && validatableInput.value <= validatableInput.max;
     }
     return isValid;
-  }
-
-  //Project Class
-  class Project {
-    constructor(
-      public id: string,
-      public title: string,
-      public description: string,
-      public people: number,
-      public status: ProjectStatus
-    ) {}
-  }
-
-  //Project Type
-  enum ProjectStatus {
-    Active,
-    Finished,
   }
 
   //Project State Management
