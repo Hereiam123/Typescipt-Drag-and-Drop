@@ -1,4 +1,4 @@
-namespace DDInterface {
+namespace App {
   //Drag and Drop Interfaces
   //For draggable items
   export interface Draggable {
