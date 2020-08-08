@@ -1,6 +1,9 @@
 //Component Base Class
 //Handles general rendering and attachment of inheriting component classes
-export abstract class Component<T extends HTMLElement, U extends HTMLElement> {
+export default abstract class Component<
+  T extends HTMLElement,
+  U extends HTMLElement
+> {
   templateElement: HTMLTemplateElement;
   hostElement: T;
   element: U;
