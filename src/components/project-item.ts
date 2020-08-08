@@ -1,5 +1,5 @@
-import Component from "./base-components.js";
-import { autobind } from "../decorators/autobind.js";
+import Component from "./base-components";
+import { autobind } from "../decorators/autobind";
 import { Draggable } from "../models/drag-drop";
 import { Project } from "../models/project";
 
