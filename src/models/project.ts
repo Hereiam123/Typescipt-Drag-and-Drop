@@ -1,18 +1,16 @@
-namespace App {
-  //Project Class
-  export class Project {
-    constructor(
-      public id: string,
-      public title: string,
-      public description: string,
-      public people: number,
-      public status: ProjectStatus
-    ) {}
-  }
+//Project Class
+export class Project {
+  constructor(
+    public id: string,
+    public title: string,
+    public description: string,
+    public people: number,
+    public status: ProjectStatus
+  ) {}
+}
 
-  //Project Type
-  export enum ProjectStatus {
-    Active,
-    Finished,
-  }
+//Project Type
+export enum ProjectStatus {
+  Active,
+  Finished,
 }
